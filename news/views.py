@@ -16,3 +16,7 @@ def news_of_day(request):
         </html>
             '''
     return HttpResponse(html)
+
+def convert_dates(dates):
+    
+    #functin that gets the weekday number for dates
