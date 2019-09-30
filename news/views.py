@@ -25,3 +25,5 @@ def convert_dates(dates):
     # Returning the actual day of the week
     day = days[day_number]
     return day
+
+def news_of_day(request):
