@@ -1,48 +1,44 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 import datetime as dt
-from django.http import HttpResponse,Http404
 
 # Create your views here.
 def welcome(request):
-    return HttpResponse("Welcome to the Moringa Tribune")
+    return HttpResponse('Welcome to the Moringa Tribune')
 
 def news_of_day(request):
     date = dt.date.today()
+    
+    # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
+    day = convert_dates(date)
     html = f'''
         <html>
             <body>
-                <h1> {date.day}-{date.month}-{date.year}</h1>
+                <h1> News for {day} {date.day}-{date.month}-{date.year}</h1>
             </body>
         </html>
             '''
     return HttpResponse(html)
 
-def convert_dates(date):
-    
-    #functin that gets the weekday number for dates
-    day_number = dt.date.weekday(date)
-    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+def convert_dates(dates):
+
+    # Function that gets the weekday number for the date.
+    day_number = dt.date.weekday(dates)
+
+    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',"Sunday"]
+
     # Returning the actual day of the week
     day = days[day_number]
     return day
 
-def news_of_day(request):
-    date = dt.date.today()
-    # function to convert date object to find the exact day
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>News for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
-
 def past_days_news(request,past_date):
-    # Converts data from the string Url
+    
+    try:
+        # Converts data from the string Url
         date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
+    except ValueError:
+        # Raise 404 error when ValueError is thrown
+        raise Http404()
 
     day = convert_dates(date)
     html = f'''
@@ -53,4 +49,3 @@ def past_days_news(request,past_date):
         </html>
             '''
     return HttpResponse(html)
-    
