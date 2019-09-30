@@ -20,3 +20,5 @@ def news_of_day(request):
 def convert_dates(dates):
     
     #functin that gets the weekday number for dates
+    day_number = dt.date.weekday(dates)
+    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
