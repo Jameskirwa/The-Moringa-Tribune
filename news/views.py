@@ -27,3 +27,6 @@ def convert_dates(dates):
     return day
 
 def news_of_day(request):
+    date = dt.date.today()
+    # function to convert date object to find the exact day
+    
