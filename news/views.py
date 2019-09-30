@@ -29,4 +29,13 @@ def convert_dates(dates):
 def news_of_day(request):
     date = dt.date.today()
     # function to convert date object to find the exact day
+    day = convert_dates(dates)
+    html = f'''
+        <html>
+            <body>
+                <h1>News for {day} {date.day}-{date.month}-{date.year}</h1>
+            </body>
+        </html>
+            '''
+    return HttpResponse(html)
     
