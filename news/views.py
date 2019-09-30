@@ -23,3 +23,5 @@ def convert_dates(dates):
     day_number = dt.date.weekday(dates)
     days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
     # Returning the actual day of the week
+    day = days[day_number]
+    return day
